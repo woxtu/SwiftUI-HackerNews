@@ -3,7 +3,7 @@
 //  HackerNews
 //
 //  Created by woxtu on 2019/06/09.
-//  Copyright (c) 2019 woxtu. All rights reserved.
+//  Copyright © 2019 woxtu. All rights reserved.
 //
 
 import SwiftUI
@@ -11,13 +11,7 @@ import SwiftUI
 struct ItemListItemView: View {
     let item: Item
 
-    func format(date: Date) -> String {
-        struct Static {
-            static let dateFormatter = DateFormatter(dateStyle: .short, timeStyle: .short)
-        }
-
-        return Static.dateFormatter.string(from: date)
-    }
+    private static let dateFormatter = DateFormatter(dateStyle: .short, timeStyle: .short)
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -29,7 +23,7 @@ struct ItemListItemView: View {
                 Text(item.text!).font(.subheadline)
             }
             HStack {
-                Text("\(item.score) pts | \(item.by) | \(format(date: item.time)) | \(item.kids.count)")
+                Text("\(item.score) pts | \(item.by) | \(item.time, formatter: Self.dateFormatter) | \(item.kids.count)")
                     .color(.gray)
                 Spacer()
             }

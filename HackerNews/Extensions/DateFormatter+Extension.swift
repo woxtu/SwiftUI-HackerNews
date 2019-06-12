@@ -3,7 +3,7 @@
 //  HackerNews
 //
 //  Created by woxtu on 2019/06/09.
-//  Copyright (c) 2019 woxtu. All rights reserved.
+//  Copyright © 2019 woxtu. All rights reserved.
 //
 
 import Foundation
