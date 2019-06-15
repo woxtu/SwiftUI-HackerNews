@@ -39,9 +39,11 @@ final class MainViewModel: BindableObject {
     private var task: Cancellable?
 
     init() {
-        _ = loadMoreStories.sink { _ in
-            self.fetchItems(ids: self.feed.dropLast(self.items.count).prefix(self.perPage))
-        }
+        _ = loadMoreStories
+            .throttle(for: 3.0, scheduler: DispatchQueue.global(), latest: false)
+            .sink { _ in
+                self.fetchItems(ids: self.feed.dropLast(self.items.count).prefix(self.perPage))
+            }
 
         fetchFeed(type: feedType)
     }
@@ -60,7 +62,7 @@ final class MainViewModel: BindableObject {
         task = Publishers.MergeMany(ids.map { HackerNewsAPI.FetchItem(id: $0) })
             .collect()
             .replaceError(with: [])
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .map { self.items + $0 }
             .assign(to: \.items, on: self)
     }
