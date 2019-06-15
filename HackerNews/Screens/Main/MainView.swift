@@ -25,6 +25,12 @@ struct MainView: View {
                         ForEach(viewModel.items.identified(by: \.id)) { item in
                             ItemListItemView(item: item)
                         }
+                        if viewModel.hasMoreStories {
+                            Button(action: { self.viewModel.loadMoreStories.send(()) }) {
+                                Text("Load more")
+                                    .color(Color("Primary"))
+                            }
+                        }
                     }
                 } else {
                     Spacer()

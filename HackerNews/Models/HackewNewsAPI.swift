@@ -18,7 +18,7 @@ class HackerNewsAPI {
 
         func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
             let url = URL(string: "https://hacker-news.firebaseio.com/v0/\(type.rawValue)stories.json")!
-            URLSession.Publisher(session: URLSession.shared, url: url)
+            URLSession.Task(session: URLSession.shared, url: url)
                 .decode(type: [Int].self, decoder: JSONDecoder())
                 .receive(subscriber: subscriber)
         }
@@ -32,7 +32,7 @@ class HackerNewsAPI {
 
         func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
             let url = URL(string: "https://hacker-news.firebaseio.com/v0/item/\(id).json")!
-            URLSession.Publisher(session: URLSession.shared, url: url)
+            URLSession.Task(session: URLSession.shared, url: url)
                 .decode(type: Item.self, decoder: JSONDecoder())
                 .receive(subscriber: subscriber)
         }

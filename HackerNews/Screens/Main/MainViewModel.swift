@@ -20,6 +20,12 @@ final class MainViewModel: BindableObject {
         }
     }
 
+    let loadMoreStories = PassthroughSubject<Void, Never>()
+
+    var hasMoreStories: Bool {
+        items.count < feed.count
+    }
+
     var items = [Item]() {
         didSet { didChange.send(self) }
     }
@@ -30,23 +36,32 @@ final class MainViewModel: BindableObject {
         didSet { fetchItems(ids: feed.prefix(perPage)) }
     }
 
-    private var cancellable: Cancellable?
+    private var task: Cancellable?
 
     init() {
+        _ = loadMoreStories.sink { _ in
+            self.fetchItems(ids: self.feed.dropLast(self.items.count).prefix(self.perPage))
+        }
+
         fetchFeed(type: feedType)
     }
 
+    deinit {
+        task?.cancel()
+    }
+
     func fetchFeed(type: FeedType) {
-        cancellable = HackerNewsAPI.FetchFeed(type: type)
+        task = HackerNewsAPI.FetchFeed(type: type)
             .replaceError(with: [])
             .assign(to: \.feed, on: self)
     }
 
     func fetchItems<S>(ids: S) where S: Sequence, S.Element == Int {
-        cancellable = Publishers.MergeMany(ids.map(HackerNewsAPI.FetchItem.init))
+        task = Publishers.MergeMany(ids.map { HackerNewsAPI.FetchItem(id: $0) })
             .collect()
             .replaceError(with: [])
             .receive(on: RunLoop.main)
+            .map { self.items + $0 }
             .assign(to: \.items, on: self)
     }
 }

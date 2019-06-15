@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 extension URLSession {
-    struct Publisher: Combine.Publisher {
+    struct Task: Publisher {
         typealias Output = Data
         typealias Failure = Error
 
@@ -30,7 +30,7 @@ extension URLSession {
                 }
             }
 
-            let subscription = URLSessionDataTask.Subscription(task: task)
+            let subscription = URLSessionDataTask.Cancel(task: task)
             subscriber.receive(subscription: subscription)
 
             task.resume()
@@ -43,7 +43,7 @@ extension URLSession {
 }
 
 extension URLSessionDataTask {
-    struct Subscription: Combine.Subscription {
+    struct Cancel: Subscription {
         let combineIdentifier = CombineIdentifier()
         let task: URLSessionTask
 
