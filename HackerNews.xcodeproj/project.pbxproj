@@ -19,6 +19,7 @@
 		434D350222B14FBE00E2BD44 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434D350122B14FBE00E2BD44 /* MainViewModel.swift */; };
 		4356066A22B152D30031BDDF /* HackewNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4356066922B152D30031BDDF /* HackewNewsAPI.swift */; };
 		436168F822AC009A00AFAEAE /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436168F722AC009A00AFAEAE /* DateFormatter+Extension.swift */; };
+		43CAD3A722BBDEC400D2EC9F /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CAD3A622BBDEC400D2EC9F /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		434D350122B14FBE00E2BD44 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4356066922B152D30031BDDF /* HackewNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackewNewsAPI.swift; sourceTree = "<group>"; };
 		436168F722AC009A00AFAEAE /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		43CAD3A622BBDEC400D2EC9F /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		432A590322ABDDF2007BE576 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				43CAD3A622BBDEC400D2EC9F /* ActivityIndicatorView.swift */,
 				432A590422ABDE2A007BE576 /* ItemListItemView.swift */,
 			);
 			path = Components;
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				430D46D622AB9F6600B4022D /* AppDelegate.swift in Sources */,
+				43CAD3A722BBDEC400D2EC9F /* ActivityIndicatorView.swift in Sources */,
 				432A590222ABB4FE007BE576 /* MainView.swift in Sources */,
 				436168F822AC009A00AFAEAE /* DateFormatter+Extension.swift in Sources */,
 				434D34F822B1481600E2BD44 /* FeedType.swift in Sources */,

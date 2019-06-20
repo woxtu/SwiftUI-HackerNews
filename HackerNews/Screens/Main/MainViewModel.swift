@@ -20,6 +20,7 @@ final class MainViewModel: BindableObject {
         }
     }
 
+    let viewDidAppear = PassthroughSubject<Void, Never>()
     let loadMoreStories = PassthroughSubject<Void, Never>()
 
     var hasMoreStories: Bool {
@@ -36,16 +37,15 @@ final class MainViewModel: BindableObject {
         didSet { fetchItems(ids: feed.prefix(perPage)) }
     }
 
+    private var isLoading = false
     private var task: Cancellable?
 
     init() {
-        _ = loadMoreStories
-            .throttle(for: 3.0, scheduler: DispatchQueue.global(), latest: false)
-            .sink { _ in
-                self.fetchItems(ids: self.feed.dropLast(self.items.count).prefix(self.perPage))
-            }
+        _ = viewDidAppear
+            .sink { _ in self.fetchFeed(type: self.feedType) }
 
-        fetchFeed(type: feedType)
+        _ = loadMoreStories
+            .sink { _ in self.fetchItems(ids: self.feed.dropLast(self.items.count).prefix(self.perPage)) }
     }
 
     deinit {
@@ -53,17 +53,30 @@ final class MainViewModel: BindableObject {
     }
 
     func fetchFeed(type: FeedType) {
+        if isLoading {
+            return
+        }
+        isLoading = true
+
         task = HackerNewsAPI.FetchFeed(type: type)
-            .replaceError(with: [])
-            .assign(to: \.feed, on: self)
+            .sink {
+                self.isLoading = false
+                self.feed = $0
+            }
     }
 
     func fetchItems<S>(ids: S) where S: Sequence, S.Element == Int {
+        if isLoading {
+            return
+        }
+        isLoading = true
+
         task = Publishers.MergeMany(ids.map { HackerNewsAPI.FetchItem(id: $0) })
             .collect()
-            .replaceError(with: [])
             .receive(on: DispatchQueue.main)
-            .map { self.items + $0 }
-            .assign(to: \.items, on: self)
+            .sink {
+                self.isLoading = false
+                self.items = self.items + $0
+            }
     }
 }

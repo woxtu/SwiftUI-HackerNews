@@ -26,10 +26,8 @@ struct MainView: View {
                             ItemListItemView(item: item)
                         }
                         if viewModel.hasMoreStories {
-                            Button(action: { self.viewModel.loadMoreStories.send(()) }) {
-                                Text("Load more")
-                                    .color(Color("Primary"))
-                            }
+                            ActivityIndicatorView(style: .medium, color: UIColor(named: "Primary")!)
+                                .onAppear { self.viewModel.loadMoreStories.send(()) }
                         }
                     }
                 } else {
@@ -38,5 +36,6 @@ struct MainView: View {
             }
             .navigationBarTitle(Text("Hacker News"))
         }
+        .onAppear { self.viewModel.viewDidAppear.send(()) }
     }
 }
