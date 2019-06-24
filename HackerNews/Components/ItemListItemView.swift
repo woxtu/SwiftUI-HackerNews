@@ -17,13 +17,26 @@ struct ItemListItemView: View {
         VStack(alignment: .leading, spacing: 2) {
             // cannot use if-let statement?
             if item.title != nil {
-                Text(item.title!).font(.headline)
-            }
-            if item.text != nil {
-                Text(item.text!).font(.subheadline)
+                Text(item.title!)
+                    .font(.headline)
+                    .lineLimit(nil)
+            } else if item.text != nil {
+                Text(item.text!)
+                    .font(.subheadline)
+                    .lineLimit(nil)
             }
             HStack {
-                Text("\(item.score) pts | \(item.by) | \(item.time, formatter: Self.dateFormatter) | \(item.kids.count)")
+                Text("by \(item.by) \(item.time, formatter: Self.dateFormatter)")
+                    .color(.gray)
+                Image(systemName: "hand.thumbsup")
+                    .foregroundColor(.gray)
+                    .imageScale(.small)
+                Text("\(item.score)")
+                    .color(.gray)
+                Image(systemName: "bubble.right")
+                    .foregroundColor(.gray)
+                    .imageScale(.small)
+                Text("\(item.kids.count)")
                     .color(.gray)
                 Spacer()
             }
