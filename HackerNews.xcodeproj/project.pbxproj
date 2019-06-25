@@ -15,6 +15,7 @@
 		432A590222ABB4FE007BE576 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432A590122ABB4FE007BE576 /* MainView.swift */; };
 		432A590522ABDE2A007BE576 /* ItemListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432A590422ABDE2A007BE576 /* ItemListItemView.swift */; };
 		432A590822ABDE5A007BE576 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432A590722ABDE5A007BE576 /* Item.swift */; };
+		4331A17522C2673000D64427 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4331A17422C2672F00D64427 /* WebView.swift */; };
 		434D34F822B1481600E2BD44 /* FeedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434D34F722B1481600E2BD44 /* FeedType.swift */; };
 		434D350222B14FBE00E2BD44 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434D350122B14FBE00E2BD44 /* MainViewModel.swift */; };
 		4356066A22B152D30031BDDF /* HackewNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4356066922B152D30031BDDF /* HackewNewsAPI.swift */; };
@@ -33,6 +34,7 @@
 		432A590122ABB4FE007BE576 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		432A590422ABDE2A007BE576 /* ItemListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListItemView.swift; sourceTree = "<group>"; };
 		432A590722ABDE5A007BE576 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4331A17422C2672F00D64427 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		434D34F722B1481600E2BD44 /* FeedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedType.swift; sourceTree = "<group>"; };
 		434D350122B14FBE00E2BD44 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4356066922B152D30031BDDF /* HackewNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackewNewsAPI.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				43CAD3A622BBDEC400D2EC9F /* ActivityIndicatorView.swift */,
 				432A590422ABDE2A007BE576 /* ItemListItemView.swift */,
+				4331A17422C2672F00D64427 /* WebView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				430D46D822AB9F6600B4022D /* SceneDelegate.swift in Sources */,
 				432A590822ABDE5A007BE576 /* Item.swift in Sources */,
 				434D350222B14FBE00E2BD44 /* MainViewModel.swift in Sources */,
+				4331A17522C2673000D64427 /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

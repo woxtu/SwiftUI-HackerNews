@@ -23,7 +23,10 @@ struct MainView: View {
                 if !viewModel.items.isEmpty {
                     List {
                         ForEach(viewModel.items.identified(by: \.id)) { item in
-                            ItemListItemView(item: item)
+                            NavigationButton(destination: WebView(url: URL(string: item.htmlUrl)!)
+                                .navigationBarTitle(Text(item.title ?? "Hacker News"))) {
+                                ItemListItemView(item: item)
+                            }
                         }
                         if viewModel.hasMoreStories {
                             ActivityIndicatorView(style: .medium, color: UIColor(named: "Primary")!)

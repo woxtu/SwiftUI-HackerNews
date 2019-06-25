@@ -17,6 +17,10 @@ struct Item {
     let title: String?
     let text: String?
     let url: String?
+
+    var htmlUrl: String {
+        "https://news.ycombinator.com/item?id=\(id)"
+    }
 }
 
 extension Item: Codable {
