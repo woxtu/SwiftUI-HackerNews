@@ -15,14 +15,14 @@ struct MainView: View {
         NavigationView {
             VStack {
                 SegmentedControl(selection: $viewModel.feedType) {
-                    ForEach(FeedType.allCases.identified(by: \.self)) { type in
+                    ForEach(FeedType.allCases, id: \.self) { type in
                         Text(type.rawValue.capitalized)
                     }
                 }
                 .padding([.leading, .trailing], 16)
                 if !viewModel.items.isEmpty {
                     List {
-                        ForEach(viewModel.items.identified(by: \.id)) { item in
+                        ForEach(viewModel.items, id: \.id) { item in
                             NavigationLink(destination: WebView(url: URL(string: item.htmlUrl)!)
                                 .navigationBarTitle(Text(item.title ?? "Hacker News"))) {
                                 ItemListItemView(item: item)

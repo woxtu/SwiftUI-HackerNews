@@ -11,7 +11,7 @@ import Foundation
 import SwiftUI
 
 final class MainViewModel: BindableObject {
-    let didChange = PassthroughSubject<MainViewModel, Never>()
+    let willChange = PassthroughSubject<MainViewModel, Never>()
 
     var feedType = FeedType.top {
         didSet {
@@ -25,7 +25,7 @@ final class MainViewModel: BindableObject {
     }
 
     var items = [Item]() {
-        didSet { didChange.send(self) }
+        willSet { willChange.send(self) }
     }
 
     private let perPage = 12
@@ -56,10 +56,14 @@ final class MainViewModel: BindableObject {
         isLoading = true
 
         subscriber = HackerNewsAPI.FetchFeed(type: type)
-            .sink {
+            .sink(receiveCompletion: {
+                if case let .failure(error) = $0 {
+                    print(error)
+                }
+            }, receiveValue: {
                 self.isLoading = false
                 self.feed = $0
-            }
+            })
     }
 
     func fetchItems<S>(ids: S) where S: Sequence, S.Element == Int {
@@ -71,9 +75,13 @@ final class MainViewModel: BindableObject {
         subscriber = Publishers.MergeMany(ids.map { HackerNewsAPI.FetchItem(id: $0) })
             .collect()
             .receive(on: DispatchQueue.main)
-            .sink {
+            .sink(receiveCompletion: {
+                if case let .failure(error) = $0 {
+                    print(error)
+                }
+            }, receiveValue: {
                 self.isLoading = false
                 self.items = self.items + $0
-            }
+            })
     }
 }

@@ -27,17 +27,17 @@ struct ItemListItemView: View {
             }
             HStack {
                 Text("by \(item.by) \(item.time, formatter: Self.dateFormatter)")
-                    .color(.gray)
+                    .foregroundColor(.gray)
                 Image(systemName: "hand.thumbsup")
                     .foregroundColor(.gray)
                     .imageScale(.small)
                 Text("\(item.score)")
-                    .color(.gray)
+                    .foregroundColor(.gray)
                 Image(systemName: "bubble.right")
                     .foregroundColor(.gray)
                     .imageScale(.small)
                 Text("\(item.kids.count)")
-                    .color(.gray)
+                    .foregroundColor(.gray)
                 Spacer()
             }
         }
