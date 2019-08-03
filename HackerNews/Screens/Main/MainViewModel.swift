@@ -10,9 +10,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-final class MainViewModel: BindableObject {
-    let willChange = PassthroughSubject<MainViewModel, Never>()
-
+final class MainViewModel: ObservableObject {
     var feedType = FeedType.top {
         didSet {
             items.removeAll()
@@ -24,9 +22,7 @@ final class MainViewModel: BindableObject {
         items.count < feed.count
     }
 
-    var items = [Item]() {
-        willSet { willChange.send(self) }
-    }
+    @Published var items = [Item]()
 
     private let perPage = 12
 

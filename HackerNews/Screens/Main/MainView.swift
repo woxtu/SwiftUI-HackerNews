@@ -9,16 +9,17 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObjectBinding var viewModel: MainViewModel
+    @ObservedObject var viewModel: MainViewModel
 
     var body: some View {
         NavigationView {
             VStack {
-                SegmentedControl(selection: $viewModel.feedType) {
+                Picker("Feed", selection: $viewModel.feedType) {
                     ForEach(FeedType.allCases, id: \.self) { type in
                         Text(type.rawValue.capitalized)
                     }
                 }
+                .pickerStyle(SegmentedPickerStyle())
                 .padding([.leading, .trailing], 16)
                 if !viewModel.items.isEmpty {
                     List {
