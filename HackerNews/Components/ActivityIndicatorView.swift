@@ -11,7 +11,7 @@ import SwiftUI
 struct ActivityIndicatorView: View {
     let style: UIActivityIndicatorView.Style
     let color: UIColor
-    @State private var size = CGSize.zero
+    @State private var size: CGSize = .zero
 
     var body: some View {
         GeometryReader { geometry in

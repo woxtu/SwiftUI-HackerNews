@@ -11,7 +11,7 @@ import SwiftUI
 struct ItemListItemView: View {
     let item: Item
 
-    private static let dateFormatter = DateFormatter(dateStyle: .short, timeStyle: .short)
+    private static let dateFormatter: DateFormatter = .init(dateStyle: .short, timeStyle: .short)
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {

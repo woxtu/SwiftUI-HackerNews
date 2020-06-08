@@ -11,7 +11,7 @@ import Foundation
 import SwiftUI
 
 final class MainViewModel: ObservableObject {
-    var feedType = FeedType.top {
+    var feedType: FeedType = .top {
         didSet {
             items.removeAll()
             fetchFeed(type: feedType)
@@ -22,16 +22,16 @@ final class MainViewModel: ObservableObject {
         items.count < feed.count
     }
 
-    @Published var items = [Item]()
+    @Published var items: [Item] = []
 
-    private let perPage = 12
+    private let perPage: Int = 12
 
-    private var feed = [Int]() {
+    private var feed: [Int] = [] {
         didSet { fetchItems(ids: feed.prefix(perPage)) }
     }
 
-    private var isLoading = false
-    private var cancellers = Set<AnyCancellable>()
+    private var isLoading: Bool = false
+    private var cancellers: Set<AnyCancellable> = []
 
     func onAppear() {
         fetchFeed(type: feedType)
@@ -42,18 +42,12 @@ final class MainViewModel: ObservableObject {
     }
 
     func fetchFeed(type: FeedType) {
-        if isLoading {
-            return
-        }
-        isLoading = true
-
         HackerNewsAPI.FetchFeed(type: type)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
                 }
             }, receiveValue: {
-                self.isLoading = false
                 self.feed = $0
             })
             .store(in: &cancellers)
@@ -65,15 +59,17 @@ final class MainViewModel: ObservableObject {
         }
         isLoading = true
 
-        Publishers.MergeMany(ids.map { HackerNewsAPI.FetchItem(id: $0) })
+        Publishers.Sequence(sequence: ids)
+            .flatMap(maxPublishers: .max(4)) { HackerNewsAPI.FetchItem(id: $0) }
             .collect()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
                 }
-            }, receiveValue: {
+
                 self.isLoading = false
+            }, receiveValue: {
                 self.items = self.items + $0
             })
             .store(in: &cancellers)
