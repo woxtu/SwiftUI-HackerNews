@@ -18,8 +18,8 @@ struct Item {
     let text: String?
     let url: String?
 
-    var htmlUrl: String {
-        "https://news.ycombinator.com/item?id=\(id)"
+    var webURL: URL? {
+        URL(string: "https://news.ycombinator.com/item?id=\(id)")
     }
 }
 

@@ -24,10 +24,12 @@ struct MainView: View {
                 if !viewModel.items.isEmpty {
                     List {
                         ForEach(viewModel.items, id: \.id) { item in
-                            NavigationLink(destination: WebView(url: URL(string: item.htmlUrl)!)
-                                .navigationBarTitle(Text(item.title ?? "Hacker News"))) {
-                                    ItemListItemView(item: item)
-                                }
+                            if let webURL = item.webURL {
+                                NavigationLink(destination: WebView(url: webURL)
+                                    .navigationBarTitle(Text(item.title ?? "Hacker News"))) {
+                                        ItemListItemView(item: item)
+                                    }
+                            }
                         }
                         if viewModel.hasMoreItems {
                             ActivityIndicatorView(style: .medium, color: UIColor(named: "Primary")!)
