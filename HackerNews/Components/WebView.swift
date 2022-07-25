@@ -12,9 +12,9 @@ import SwiftUI
 struct WebView: UIViewControllerRepresentable {
     let url: URL
 
-    func makeUIViewController(context _: Context) -> SFSafariViewController {
+    func makeUIViewController(context: Context) -> SFSafariViewController {
         return SFSafariViewController(url: url)
     }
 
-    func updateUIViewController(_: SFSafariViewController, context _: Context) {}
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }

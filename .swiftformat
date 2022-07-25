@@ -1,0 +1,3 @@
+--swiftversion 5.3
+--disable redundantReturn
+--disable unusedArguments

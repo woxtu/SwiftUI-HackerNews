@@ -26,8 +26,8 @@ struct MainView: View {
                         ForEach(viewModel.items, id: \.id) { item in
                             NavigationLink(destination: WebView(url: URL(string: item.htmlUrl)!)
                                 .navigationBarTitle(Text(item.title ?? "Hacker News"))) {
-                                ItemListItemView(item: item)
-                            }
+                                    ItemListItemView(item: item)
+                                }
                         }
                         if viewModel.hasMoreItems {
                             ActivityIndicatorView(style: .medium, color: UIColor(named: "Primary")!)

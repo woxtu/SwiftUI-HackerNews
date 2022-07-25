@@ -26,14 +26,14 @@ struct ActivityIndicatorView: View {
         let parentSize: CGSize
         @Binding var size: CGSize
 
-        func makeUIView(context _: Context) -> UIActivityIndicatorView {
+        func makeUIView(context: Context) -> UIActivityIndicatorView {
             let uiView = UIActivityIndicatorView(style: style)
             uiView.color = color
             uiView.startAnimating()
             return uiView
         }
 
-        func updateUIView(_ uiView: UIActivityIndicatorView, context _: Context) {
+        func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
             DispatchQueue.main.async {
                 self.size = uiView.sizeThatFits(self.parentSize)
             }
