@@ -15,13 +15,12 @@ struct ItemListItemView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            // cannot use if-let statement?
-            if item.title != nil {
-                Text(item.title!)
+            if let title = item.title {
+                Text(title)
                     .font(.headline)
                     .lineLimit(nil)
-            } else if item.text != nil {
-                Text(item.text!)
+            } else if let text = item.text {
+                Text(text)
                     .font(.subheadline)
                     .lineLimit(nil)
             }

@@ -6,7 +6,8 @@ A Hacker News reader built with SwiftUI+Combine.
 
 ## Requirements
 
-- Xcode 11.0 beta 5
+- Xcode 12.0
+- iOS 13.0
 
 ## License
 

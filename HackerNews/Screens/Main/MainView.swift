@@ -34,6 +34,7 @@ struct MainView: View {
                                 .onAppear { self.viewModel.loadMoreItems() }
                         }
                     }
+                    .listStyle(PlainListStyle())
                 } else {
                     Spacer()
                 }
