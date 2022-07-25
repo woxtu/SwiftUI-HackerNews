@@ -31,7 +31,7 @@ final class MainViewModel: ObservableObject {
     }
 
     private var isLoading: Bool = false
-    private var cancellers: Set<AnyCancellable> = []
+    private var cancellable: AnyCancellable?
 
     func onAppear() {
         fetchFeed(type: feedType)
@@ -42,7 +42,7 @@ final class MainViewModel: ObservableObject {
     }
 
     func fetchFeed(type: FeedType) {
-        HackerNewsAPI.FetchFeed(type: type)
+        cancellable = HackerNewsAPI.FetchFeed(type: type)
             .sink(receiveCompletion: {
                 if case let .failure(error) = $0 {
                     print(error)
@@ -50,7 +50,6 @@ final class MainViewModel: ObservableObject {
             }, receiveValue: {
                 self.feed = $0
             })
-            .store(in: &cancellers)
     }
 
     func fetchItems<S>(ids: S) where S: Sequence, S.Element == Int {
@@ -59,7 +58,7 @@ final class MainViewModel: ObservableObject {
         }
         isLoading = true
 
-        Publishers.Sequence(sequence: ids)
+        cancellable = Publishers.Sequence(sequence: ids)
             .flatMap(maxPublishers: .max(4)) { HackerNewsAPI.FetchItem(id: $0) }
             .collect()
             .receive(on: DispatchQueue.main)
@@ -72,6 +71,5 @@ final class MainViewModel: ObservableObject {
             }, receiveValue: {
                 self.items = self.items + $0
             })
-            .store(in: &cancellers)
     }
 }
